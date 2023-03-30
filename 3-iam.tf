@@ -129,8 +129,7 @@ module "eks_view_eks_role" {
   custom_role_policy_arns = [module.allow_view_eks_policy.arn]
 
   trusted_role_arns = [
-    "arn:aws:iam::${module.vpc.vpc_owner_id}:root",
-    "arn:aws:iam::812192580694:user/user2"
+    "arn:aws:iam::${module.vpc.vpc_owner_id}:root"
   ]
 }
 module "allow_assume_view_eks_iam_policy" {
