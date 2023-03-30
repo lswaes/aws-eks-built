@@ -1,0 +1,64 @@
+# resource "kubectl_manifest" "role" {
+#     yaml_body = <<-EOF
+#   apiVersion: rbac.authorization.k8s.io/v1
+#   kind: Role
+#   metadata:
+#     name: view-eks-role
+#     namespace: default
+#     labels:
+#       env: dev
+#   rules:
+#     - apiGroups: [""]
+#       resources: ["*"]
+#       verbs: ["get","list","watch"]
+#   EOF
+# }
+
+# resource "kubectl_manifest" "role_binding" {
+#     yaml_body = <<-EOF
+#   apiVersion: rbac.authorization.k8s.io/v1
+#   kind: RoleBinding
+#   metadata:
+#     name: view-eks-rolebinding
+#     namespace: default
+#     labels:
+#       env: dev
+#   roleRef:
+#     apiGroup: rbac.authorization.k8s.io
+#     kind: Role
+#     name: view-eks-role
+#   subjects:
+#     - kind: Group
+#       name: developer
+#       namespace: kube-system
+#   EOF
+# }
+
+
+  apiVersion: rbac.authorization.k8s.io/v1
+  kind: Role
+  metadata:
+    name: view-eks-role
+    namespace: default
+    labels:
+      env: dev
+  rules:
+    - apiGroups: [""]
+      resources: ["*"]
+      verbs: ["get","list","watch","describe"]
+---
+  apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    name: view-eks-rolebinding
+    namespace: default
+    labels:
+      env: dev
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Role
+    name: view-eks-role
+  subjects:
+    - kind: Group
+      name: developer
+      namespace: kube-system
